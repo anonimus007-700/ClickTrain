@@ -2,9 +2,10 @@ import flet as ft
 from popup_color_item import PopupColorItem
 
 class Menu(ft.Column):
-    def __init__(self, gallery):
+    def __init__(self, gallery, setter):
         super().__init__()
         self.gallery = gallery
+        self.setter = setter
         self.rail = ft.NavigationRail(
             extended=True,
             expand=True,
@@ -15,9 +16,15 @@ class Menu(ft.Column):
             destinations=self.get_destinations(),
             on_change=self.control_group_selected,
         )
-    
-        self.dark_light_text = ft.Text("Dark theme")
 
+        try:
+            if self.setter.theme == "DARK":
+                self.dark_light_text = ft.Text("Dark theme")
+            else:
+                self.dark_light_text = ft.Text("Light theme")
+        except:
+            self.dark_light_text = ft.Text("Dark theme")
+        
         self.controls = [
             self.rail,
             ft.Column(
@@ -37,15 +44,15 @@ class Menu(ft.Column):
                             ft.PopupMenuButton(
                                 icon=ft.icons.COLOR_LENS_OUTLINED,
                                 items=[
-                                    PopupColorItem(color="deeppurple", name="Deep purple"),
-                                    PopupColorItem(color="indigo", name="Indigo"),
-                                    PopupColorItem(color="blue", name="Blue (default)"),
-                                    PopupColorItem(color="teal", name="Teal"),
-                                    PopupColorItem(color="green", name="Green"),
-                                    PopupColorItem(color="yellow", name="Yellow"),
-                                    PopupColorItem(color="orange", name="Orange"),
-                                    PopupColorItem(color="deeporange", name="Deep orange"),
-                                    PopupColorItem(color="pink", name="Pink"),
+                                    PopupColorItem(color="deeppurple", name="Deep purple", setter=self.setter),
+                                    PopupColorItem(color="indigo", name="Indigo", setter=self.setter),
+                                    PopupColorItem(color="blue", name="Blue (default)", setter=self.setter),
+                                    PopupColorItem(color="teal", name="Teal", setter=self.setter),
+                                    PopupColorItem(color="green", name="Green", setter=self.setter),
+                                    PopupColorItem(color="yellow", name="Yellow", setter=self.setter),
+                                    PopupColorItem(color="orange", name="Orange", setter=self.setter),
+                                    PopupColorItem(color="deeporange", name="Deep orange", setter=self.setter),
+                                    PopupColorItem(color="pink", name="Pink", setter=self.setter),
                                 ],
                             ),
                             ft.Text("Seed color"),
@@ -77,7 +84,9 @@ class Menu(ft.Column):
         if self.page.theme_mode == ft.ThemeMode.LIGHT:
             self.page.theme_mode = ft.ThemeMode.DARK
             self.dark_light_text.value = "Dark theme"
+            self.setter.write("theme", "DARK")
         else:
             self.page.theme_mode = ft.ThemeMode.LIGHT
             self.dark_light_text.value = "Light theme"
+            self.setter.write("theme", "LIGHT")
         await self.page.update_async()

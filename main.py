@@ -3,20 +3,21 @@ import flet as ft
 from menu_bar import Menu
 from gallerydata import GalleryData
 from pages_view import PagesView
+from set_theme import SetTheme
 
 gallery = GalleryData()
 
 async def main(page: ft.Page):
     page.title = "Click Train"
     page.theme_mode = ft.ThemeMode.DARK
-    page.update()
+
+    setter = SetTheme(page)
     
     def get_route_list(route):
         route_list = [item for item in route.split("/") if item != ""]
         return route_list
     
     async def route_change(e):
-        global route_list
         route_list = get_route_list(page.route)
         if len(route_list) == 0:
             page.go("/menu")
@@ -27,13 +28,11 @@ async def main(page: ft.Page):
             
     async def display_controls_pages(control_group_name):
         pages_view.display(control_group_name)
-        menu.rail.selected_index = gallery.destinations_list.index(
-            pages_view.control_group
-        )
+        page.update()
 
-    menu = Menu(gallery=gallery)
-    pages_view = PagesView(gallery=gallery)
-
+    menu = Menu(gallery=gallery, setter=setter)
+    pages_view = PagesView(gallery=gallery, setter=setter)
+    
     page.add(
         ft.Row(
             [
@@ -41,8 +40,8 @@ async def main(page: ft.Page):
                 ft.VerticalDivider(width=1),
                 pages_view
             ],
-            expand=True,
-        )
+            expand=True
+        ),
     )
     
     page.on_route_change = route_change
