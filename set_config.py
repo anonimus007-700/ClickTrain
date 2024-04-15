@@ -44,11 +44,29 @@ class SetTheme:
         self.page.update()
     
     def write(self, *args):
-        for i in args[1:]:
-            if args[0] == "theme" or args[0] == "color":
-                parser.set(args[0], args[0], i)
-            else:
-                print(args[0])
+        if args[0] == "theme" or args[0] == "color":
+            parser.set(args[0], args[0], args[1])
+        elif args[0] == "bind":
+            _key = args[2]
+            _description = args[3]
+
+            key = f"{args[1]}_key"
+            description = f"{args[1]}_description"
+
+            if _description == "":
+                _description = "there is no description"
+
+            if _key != "bind":
+                parser.set(args[0], key, _key)
+                parser.set(args[0], description, _description)
+            
         
         with open(config_path, 'w') as configfile:
             parser.write(configfile)
+        
+    def delete(self, ID):
+        key = f"{ID}_key"
+        description = f"{ID}_description"
+
+        parser.remove_option("bind", key)
+        parser.remove_option("bind", description)

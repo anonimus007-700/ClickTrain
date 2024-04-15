@@ -18,7 +18,10 @@ class ControlGroup:
         self.grid_items = []
 
 class GalleryData:
-    def __init__(self) -> None:
+    def __init__(self, page, on_keyboard, setter):
+        self.on_keyboard = on_keyboard
+        self.page = page
+        self.setter = setter
         self.import_modules()
 
     destinations_list = [
@@ -50,12 +53,15 @@ class GalleryData:
 
             module = importlib.import_module(f"pages.{name_module.name}.index")
             
-            returned_function = getattr(module, "example", None)
+            if name_module.name == "setting":
+                returned_function = getattr(module, "example", None)(self.page, self.on_keyboard, self.setter)
+            else:
+                returned_function = getattr(module, "example", None)
+                returned_function = returned_function()
             returned_name = getattr(module, "name", None)
+            print(returned_function)
 
-            result = returned_function()
-
-            page_group = PageGroup(name=returned_name, returned=result)
+            page_group = PageGroup(name=returned_name, returned=returned_function)
             self.page_groups.append(page_group)
 
             

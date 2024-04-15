@@ -3,16 +3,17 @@ import flet as ft
 from menu_bar import Menu
 from gallerydata import GalleryData
 from pages_view import PagesView
-from set_theme import SetTheme
-
-gallery = GalleryData()
+from set_config import SetTheme
+from on_keyboard import OnKeyboard
 
 async def main(page: ft.Page):
     page.title = "Click Train"
     page.theme_mode = ft.ThemeMode.DARK
 
     setter = SetTheme(page)
-    
+    on_keyboard = OnKeyboard(page)
+    gallery = GalleryData(page, on_keyboard, setter)
+
     def get_route_list(route):
         route_list = [item for item in route.split("/") if item != ""]
         return route_list
@@ -43,9 +44,11 @@ async def main(page: ft.Page):
             expand=True
         ),
     )
-    
+
+    page.on_keyboard_event = on_keyboard.on_keyboard
     page.on_route_change = route_change
     page.go(page.route)
 
+    
 ft.app(target=main, assets_dir="assets")
 # ft.app(target=main, view=ft.AppView.WEB_BROWSER)

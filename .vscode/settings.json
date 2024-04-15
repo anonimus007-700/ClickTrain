@@ -1,0 +1,6 @@
+{
+    "files.autoSaveDelay": 5000,
+    "editor.fontSize": 16,
+    "editor.fontFamily": "JetBrains Mono",
+    "files.autoSave": "afterDelay"
+}
