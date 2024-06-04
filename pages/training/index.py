@@ -1,7 +1,5 @@
 import flet as ft
 
-name = "training"
-
 def example():
     return ft.Column(controls=[
             ft.TextField(

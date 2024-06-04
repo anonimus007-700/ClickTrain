@@ -58,10 +58,8 @@ class GalleryData:
             else:
                 returned_function = getattr(module, "example", None)
                 returned_function = returned_function()
-            returned_name = getattr(module, "name", None)
-            print(returned_function)
 
-            page_group = PageGroup(name=returned_name, returned=returned_function)
+            page_group = PageGroup(name=name_module.name, returned=returned_function)
             self.page_groups.append(page_group)
 
             

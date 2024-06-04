@@ -53,9 +53,6 @@ class SetTheme:
             key = f"{args[1]}_key"
             description = f"{args[1]}_description"
 
-            if _description == "":
-                _description = "there is no description"
-
             if _key != "bind":
                 parser.set(args[0], key, _key)
                 parser.set(args[0], description, _description)
@@ -70,3 +67,26 @@ class SetTheme:
 
         parser.remove_option("bind", key)
         parser.remove_option("bind", description)
+
+        with open(config_path, 'w') as configfile:
+            parser.write(configfile)
+
+    def get_binds(self):
+        items = parser.items('bind')
+
+        if items:
+            sorted_data = {}
+            for key, value in items:
+                id_ = int(key.split('_')[0])
+                field = key.split('_')[1]
+                
+                if id_ not in sorted_data:
+                    sorted_data[id_] = {}
+                    
+                sorted_data[id_][field] = value
+
+            items_grups = [{'id': id_, 'key': value['key'], 'description': value['description']} for id_, value in sorted_data.items()]
+
+            items_grups = sorted(items_grups, key=lambda x: int(x['id']))
+
+            return items_grups

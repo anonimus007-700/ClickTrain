@@ -15,6 +15,5 @@ class PagesView(ft.Column):
 
         for pages in self.gallery.page_groups:
             if pages.name == story:
-                # print(story)
                 self.controls = [pages.returned]
                 break

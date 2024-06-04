@@ -1,7 +1,5 @@
 import flet as ft
 
-name = "menu"
-
 def example():
     return ft.Column(
         controls=[
