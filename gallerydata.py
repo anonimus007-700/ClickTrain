@@ -26,20 +26,20 @@ class GalleryData:
 
     destinations_list = [
         ControlGroup(
-            name="menu",
-            label="Menu",
+            name='menu',
+            label='Menu',
             icon=ft.icons.MENU,
             selected_icon=ft.icons.MENU_OPEN,
         ),
         ControlGroup(
-            name="training",
-            label="Training",
+            name='training',
+            label='Training',
             icon=ft.icons.SPORTS_ESPORTS_OUTLINED,
             selected_icon=ft.icons.SPORTS_ESPORTS_ROUNDED,
         ),
         ControlGroup(
-            name="setting",
-            label="Setting",
+            name='setting',
+            label='Setting',
             icon=ft.icons.SETTINGS_OUTLINED,
             selected_icon=ft.icons.SETTINGS,
         ),
@@ -49,14 +49,14 @@ class GalleryData:
         self.page_groups = []
 
         for name_module in self.destinations_list:
-            module_path = os.path.join(str(Path(__file__).parent), "pages", name_module.name)
+            module_path = os.path.join(str(Path(__file__).parent), 'pages', name_module.name)
 
-            module = importlib.import_module(f"pages.{name_module.name}.index")
+            module = importlib.import_module(f'pages.{name_module.name}.index')
             
-            if name_module.name == "setting":
-                returned_function = getattr(module, "example", None)(self.page, self.on_keyboard, self.setter)
+            if name_module.name != 'menu':
+                returned_function = getattr(module, 'example', None)(self.page, self.on_keyboard, self.setter)
             else:
-                returned_function = getattr(module, "example", None)
+                returned_function = getattr(module, 'example', None)
                 returned_function = returned_function()
 
             page_group = PageGroup(name=name_module.name, returned=returned_function)

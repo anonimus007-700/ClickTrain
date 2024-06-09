@@ -7,7 +7,7 @@ from pathlib import Path
 
 parser = configparser.ConfigParser()
 
-config_path = os.path.join(str(Path(__file__).parent), "assets", "conf.ini")
+config_path = os.path.join(str(Path(__file__).parent), 'assets', 'conf.ini')
 
 class SetTheme:
     def __init__(self, page):
@@ -21,13 +21,13 @@ class SetTheme:
             self.set_up()
     
     def create(self):
-        parser.add_section("theme")
-        parser.set("theme", "theme", "DARK")
+        parser.add_section('theme')
+        parser.set('theme', 'theme', 'DARK')
         
-        parser.add_section("color")
-        parser.set("color", "color", "blue")
+        parser.add_section('color')
+        parser.set('color', 'color', 'blue')
 
-        parser.add_section("bind")
+        parser.add_section('bind')
         
         with open(config_path, 'w') as configfile:
             parser.write(configfile)
@@ -44,16 +44,16 @@ class SetTheme:
         self.page.update()
     
     def write(self, *args):
-        if args[0] == "theme" or args[0] == "color":
+        if args[0] == 'theme' or args[0] == 'color':
             parser.set(args[0], args[0], args[1])
-        elif args[0] == "bind":
+        elif args[0] == 'bind':
             _key = args[2]
             _description = args[3]
 
-            key = f"{args[1]}_key"
-            description = f"{args[1]}_description"
+            key = f'{args[1]}_key'
+            description = f'{args[1]}_description'
 
-            if _key != "bind":
+            if _key != 'bind':
                 parser.set(args[0], key, _key)
                 parser.set(args[0], description, _description)
             
@@ -62,11 +62,11 @@ class SetTheme:
             parser.write(configfile)
         
     def delete(self, ID):
-        key = f"{ID}_key"
-        description = f"{ID}_description"
+        key = f'{ID}_key'
+        description = f'{ID}_description'
 
-        parser.remove_option("bind", key)
-        parser.remove_option("bind", description)
+        parser.remove_option('bind', key)
+        parser.remove_option('bind', description)
 
         with open(config_path, 'w') as configfile:
             parser.write(configfile)

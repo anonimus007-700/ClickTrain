@@ -16,9 +16,9 @@ class Task(ft.UserControl):
         self.setter = setter
 
         self.press_dlg = ft.AlertDialog(
-                title=ft.Text("Please press the key"),
+                title=ft.Text('Please press the key'),
                 actions=[
-                    ft.TextButton("Cancel", on_click=lambda e: self.close_dlg()),
+                    ft.TextButton('Cancel', on_click=lambda e: self.close_dlg()),
                 ],
                 actions_alignment=ft.MainAxisAlignment.END,
                 on_dismiss=lambda e: self.close_dlg(),
@@ -51,18 +51,18 @@ class Task(ft.UserControl):
         self.edit_key = ft.Row(controls=[
                     ft.IconButton(
                         icon=ft.icons.KEYBOARD,
-                        tooltip="Set bind",
+                        tooltip='Set bind',
                         on_click=lambda e: self.on_presed()
                     ),
                     self.edit_key_presed
                 ],
             expand=True
         )
-        self.edit_description = ft.TextField(hint_text="Description", max_length=20, expand=True)
+        self.edit_description = ft.TextField(label='Description', max_length=20, expand=True)
 
         self.display_view = ft.Row(
-            alignment="spaceBetween",
-            vertical_alignment="center",
+            alignment='spaceBetween',
+            vertical_alignment='center',
             controls=[
                 self.display_key,
                 self.display_description,
@@ -71,12 +71,12 @@ class Task(ft.UserControl):
                     controls=[
                         ft.IconButton(
                             icon=ft.icons.CREATE_OUTLINED,
-                            tooltip="Edit",
+                            tooltip='Edit',
                             on_click=self.edit_clicked,
                         ),
                         ft.IconButton(
                             ft.icons.DELETE_OUTLINE,
-                            tooltip="Delete",
+                            tooltip='Delete',
                             on_click=self.delete_clicked,
                         ),
                     ],
@@ -86,15 +86,15 @@ class Task(ft.UserControl):
 
         self.edit_view = ft.Row(
             visible=False,
-            alignment="spaceBetween",
-            vertical_alignment="center",
+            alignment='spaceBetween',
+            vertical_alignment='center',
             controls=[
                 self.edit_key,
                 self.edit_description,
                 ft.IconButton(
                     icon=ft.icons.DONE_OUTLINE_OUTLINED,
                     icon_color=ft.colors.GREEN,
-                    tooltip="Update",
+                    tooltip='Update',
                     on_click=self.save_clicked,
                 ),
             ],
@@ -112,7 +112,7 @@ class Task(ft.UserControl):
 
         while reading:
             if previous != self.on_keyboard.keykap:
-                self.edit_key_presed.value = f"Seted {self.on_keyboard.keykap.key}"
+                self.edit_key_presed.value = f'Seted {self.on_keyboard.keykap.key}'
                 self.display_key.content.value = self.edit_key_presed.value
                 self.close_dlg()
                 break
@@ -168,33 +168,33 @@ class TodoApp(ft.UserControl):
             bgcolor=ft.colors.PRIMARY_CONTAINER,
             leading=ft.Icon(ft.icons.WARNING_AMBER_ROUNDED, color=ft.colors.AMBER, size=40),
             content=ft.Text(
-                "Please, enter a key"
+                'Please, enter a key'
             ),
             actions=[
-                ft.TextButton("Ok", on_click=self.close_banner),
+                ft.TextButton('Ok', on_click=self.close_banner),
             ],
         )
 
         self.press_dlg = ft.AlertDialog(
-                title=ft.Text("Please press the key"),
+                title=ft.Text('Please press the key'),
                 actions=[
-                    ft.TextButton("Cancel", on_click=lambda e: self.close_dlg(e)),
+                    ft.TextButton('Cancel', on_click=lambda e: self.close_dlg(e)),
                 ],
                 actions_alignment=ft.MainAxisAlignment.END,
                 on_dismiss=lambda e: self.close_dlg(),
             )
 
     def build(self):
-        self.key_presed = ft.Text("Set bind")
+        self.key_presed = ft.Text('Set bind')
         self.new_key = ft.Row(controls=[
                         ft.IconButton(
                             icon=ft.icons.KEYBOARD,
-                            tooltip="Set bind",
+                            tooltip='Set bind',
                             on_click=lambda e: self.on_presed()
                         ),
                         self.key_presed
         ])
-        self.new_description = ft.TextField(hint_text="Description", max_length=20, expand=True)
+        self.new_description = ft.TextField(label='Description', max_length=20, expand=True)
         self.tasks = ft.Column()
 
         self.on_start()
@@ -225,7 +225,7 @@ class TodoApp(ft.UserControl):
 
         while reading:
             if previous != self.on_keyboard.keykap:
-                self.key_presed.value = f"Seted {self.on_keyboard.keykap.key}"
+                self.key_presed.value = f'Seted {self.on_keyboard.keykap.key}'
                 self.close_dlg()
                 break
             previous = self.on_keyboard.keykap
@@ -252,15 +252,15 @@ class TodoApp(ft.UserControl):
         self.page.update()
 
     def add_clicked(self, e):
-        if self.key_presed.value == "Set bind":
+        if self.key_presed.value == 'Set bind':
             self.show_banner()
         else:
             self.close_banner()
             task = Task(self.key_presed.value, self.new_description.value,
                         self.task_delete, self.on_keyboard, self.setter)
             self.tasks.controls.append(task)
-            self.new_description.value = ""
-            self.key_presed.value = "Set bind"
+            self.new_description.value = ''
+            self.key_presed.value = 'Set bind'
             self.page.update()
 
     def task_delete(self, task):

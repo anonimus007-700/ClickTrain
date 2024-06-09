@@ -18,6 +18,6 @@ class PopupColorItem(ft.PopupMenuItem):
             color_scheme_seed=self.data
         )
         
-        self.setter.write("color", self.data)
+        self.setter.write('color', self.data)
         
         await self.page.update_async()

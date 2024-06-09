@@ -18,12 +18,12 @@ class Menu(ft.Column):
         )
 
         try:
-            if self.setter.theme == "DARK":
-                self.dark_light_text = ft.Text("Dark theme")
+            if self.setter.theme == 'DARK':
+                self.dark_light_text = ft.Text('Dark theme')
             else:
-                self.dark_light_text = ft.Text("Light theme")
+                self.dark_light_text = ft.Text('Light theme')
         except:
-            self.dark_light_text = ft.Text("Dark theme")
+            self.dark_light_text = ft.Text('Dark theme')
         
         self.controls = [
             self.rail,
@@ -33,7 +33,7 @@ class Menu(ft.Column):
                         controls=[
                             ft.IconButton(
                                 icon=ft.icons.BRIGHTNESS_2_OUTLINED,
-                                tooltip="Toggle brightness",
+                                tooltip='Toggle brightness',
                                 on_click=self.theme_changed,
                             ),
                             self.dark_light_text,
@@ -44,18 +44,18 @@ class Menu(ft.Column):
                             ft.PopupMenuButton(
                                 icon=ft.icons.COLOR_LENS_OUTLINED,
                                 items=[
-                                    PopupColorItem(color="deeppurple", name="Deep purple", setter=self.setter),
-                                    PopupColorItem(color="indigo", name="Indigo", setter=self.setter),
-                                    PopupColorItem(color="blue", name="Blue (default)", setter=self.setter),
-                                    PopupColorItem(color="teal", name="Teal", setter=self.setter),
-                                    PopupColorItem(color="green", name="Green", setter=self.setter),
-                                    PopupColorItem(color="yellow", name="Yellow", setter=self.setter),
-                                    PopupColorItem(color="orange", name="Orange", setter=self.setter),
-                                    PopupColorItem(color="deeporange", name="Deep orange", setter=self.setter),
-                                    PopupColorItem(color="pink", name="Pink", setter=self.setter),
+                                    PopupColorItem(color='deeppurple', name='Deep purple', setter=self.setter),
+                                    PopupColorItem(color='indigo', name='Indigo', setter=self.setter),
+                                    PopupColorItem(color='blue', name='Blue (default)', setter=self.setter),
+                                    PopupColorItem(color='teal', name='Teal', setter=self.setter),
+                                    PopupColorItem(color='green', name='Green', setter=self.setter),
+                                    PopupColorItem(color='yellow', name='Yellow', setter=self.setter),
+                                    PopupColorItem(color='orange', name='Orange', setter=self.setter),
+                                    PopupColorItem(color='deeporange', name='Deep orange', setter=self.setter),
+                                    PopupColorItem(color='pink', name='Pink', setter=self.setter),
                                 ],
                             ),
-                            ft.Text("Seed color"),
+                            ft.Text('Seed color'),
                         ]
                     ),
                 ]
@@ -78,15 +78,15 @@ class Menu(ft.Column):
         control_group_name = self.gallery.destinations_list[
             e.control.selected_index
         ].name
-        await self.page.go_async(f"/{control_group_name}")
+        await self.page.go_async(f'/{control_group_name}')
 
     async def theme_changed(self, e):
         if self.page.theme_mode == ft.ThemeMode.LIGHT:
             self.page.theme_mode = ft.ThemeMode.DARK
-            self.dark_light_text.value = "Dark theme"
-            self.setter.write("theme", "DARK")
+            self.dark_light_text.value = 'Dark theme'
+            self.setter.write('theme', 'DARK')
         else:
             self.page.theme_mode = ft.ThemeMode.LIGHT
-            self.dark_light_text.value = "Light theme"
-            self.setter.write("theme", "LIGHT")
+            self.dark_light_text.value = 'Light theme'
+            self.setter.write('theme', 'LIGHT')
         await self.page.update_async()

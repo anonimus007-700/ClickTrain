@@ -11,7 +11,7 @@ class PagesView(ft.Column):
         self.gallery = gallery
 
     def display(self, story):
-        # file_path = os.path.join(str(Path(__file__).parent), "pages", story, "index.py")
+        # file_path = os.path.join(str(Path(__file__).parent), 'pages', story, 'index.py')
 
         for pages in self.gallery.page_groups:
             if pages.name == story:
